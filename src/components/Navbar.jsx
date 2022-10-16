@@ -32,7 +32,7 @@ function Navbar () {
                     </button>
                 </nav>
 
-                <button onClick={showNavbar} className="nav-btn headerBtnOpen"> {/* Lo ponemos en el boton con el fin de agregar o quitar la clase */}
+                <button onClick={showNavbar} className="nav-btn headerBtnOpen"> {/*  Lo ponemos en el boton con el fin de agregar o quitar la clase */}
                     <FaBars />
                 </button>
 
