@@ -1,3 +1,6 @@
+import { useState ,useEffect } from "react"
+import CardGrinding from "./CardGrinding"
+import CardTotals from "./CardTotals"
 import morenita from "../images/cafe-molido-morenita.jpg"
 import nico from "../images/perfil.png"
 import { MdOutlineProductionQuantityLimits } from "react-icons/md";
@@ -31,148 +34,227 @@ import { AiOutlineUser, AiOutlineUserAdd } from "react-icons/ai";
 
 function Dashboard() {
 
+    /* Total de Productos en cada uno de sus Moliendas */
+
+    let [ totalProductsTypeGrinding , setTotalProductsTypeGrinding ] = useState([])
+
+    useEffect( () => {
+        fetch("http://localhost:3030/api/totalProductsTypeGrinding")
+            .then(response => response.json())
+            .then(result => {
+                setTotalProductsTypeGrinding(result)
+            })
+    }, [])
+
+    /* Total de Productos con sus gramajes */
+
+    let [ totalProductsGrames, setTotalProductsGrames ] = useState([])
+
+    useEffect( () => {
+
+        fetch (`http://localhost:3030/api/totalProductGrames`)
+            .then(response => response.json())
+            .then(result => {
+                setTotalProductsGrames(result)
+        })
+
+    }, [])
+
+    console.log(totalProductsGrames)
+
+    /* Total de Productos General */
+
+    let [ totalProducts , setTotalProduct ] = useState([])
+
+    useEffect( () => {
+        fetch ("http://localhost:3030/api/totalProducts")
+            .then(response => response.json())
+            .then(result => {
+                setTotalProduct(result)
+            })
+    }, [] )
+
+    /* Total de Usuarios */
+
+    let [ totalUsers, setTotalUsers ] = useState([])
+
+    useEffect ( () => {
+        fetch("http://localhost:3030/api/totalUsers")
+            .then(response => response.json())
+            .then(result => {
+                setTotalUsers(result)
+            })
+    }, [])
+
+    /* Ultimo Producto Creado */
+
+    let [ lastProductCreated, setLastProductCreated ] = useState([])
+
+    useEffect( () => {
+        fetch("http://localhost:3030/api/lastProductCreated")
+            .then(response => response.json())
+            .then(result => {
+                setLastProductCreated([result])
+            })
+    }, [] )
+
+    /* Ultimo Usuario Creado */
+
+    let [ lastUserCreated, setLastUserCreated ] = useState([])
+
+    useEffect ( () => {
+        fetch("http://localhost:3030/api/lastUserCreated")
+            .then(response => response.json())
+            .then(result => {
+                setLastUserCreated([result])
+            })
+    }, [] )
+
+    /* " HTML - VISTA " */
+
     return (
 
         <div className="containerCenterWeb">
 
             <div className="generalFormat dashboardGridGeneral">
                 
-                {/* Tarjetas */}
+                {/* Tarjetas - API CONSUMIDA */}
 
                 <div className="dashboard_cardContainer">
 
-                    <div className="dashboard_card dashboard_cardColor">
 
-                        <div className="cardContainer">
-                            <div>
-                                <h4>Total de Productos</h4>
-                                <p>23</p>
-                            </div>
-                            <MdOutlineProductionQuantityLimits className="cardIcon"/>
-                        </div>
+                    <CardTotals 
+                        title="Total de Productos"
+                        quantity={totalProducts.totalProductsActives}
+                        icon= <MdOutlineProductionQuantityLimits className="cardIcon"/>
+                    />
 
-                    </div>
+                    <CardTotals 
+                        title="Total de Usuarios"
+                        quantity={totalUsers.totalUsers}
+                        icon= <AiOutlineUser className="cardIcon"/>
+                    />
 
-                    <div className="dashboard_card dashboard_cardColor">
-
-                        <div className="cardContainer">
-                            <div>
-                                <h4>Total de Usuarios</h4>
-                                <p>5</p>
-                            </div>
-                            <AiOutlineUser className="cardIcon"/>
-                        </div>
-
-                    </div>
-
-                    <div className="dashboard_card dashboard_cardColor">
-
-                        <div className="cardContainer">
-                            <div>
-                                <h4>Total Roles de Usuario</h4>
-                                <p>2</p>
-                            </div>
-                            <AiOutlineUserAdd className="cardIcon"/>
-                        </div>
-
-                    </div>
+                    <CardTotals 
+                        title="Total Roles de Usuario"
+                        quantity={10}
+                        icon= <AiOutlineUserAdd className="cardIcon"/>
+                    />
 
                 </div>
 
                 {/* Detalle Ultimo Producto Creado */}
 
-                <div className="dashboard_ProductDetail">
+                {lastProductCreated.map((elementoGeneral, index) => {
 
-                    <div className="ProductTitle">
-                        <h6>Cafe la morenita suave</h6>
-                    </div>
+                    return(
 
-                    <div className="productImageContainer">
-                        <img src={morenita} alt=""/>
-                    </div>
+                        <div key={index} className="dashboard_ProductDetail">
 
-                   <div className="productDescriptionContainer">
-                        <h6>Descripcion del Producto</h6>
-                        <p>Agradable café de sabor suavemente dulce, acidez media y notas frutales. De tostión media y molienda fina, delicado al paladar. Mecafe es disfrutar del mejor cafe, una excelente calidad y el proceso mas natural para cuidar tu salud.</p>
-                   </div>
+                            <div className="ProductTitle">
+                                <h6>{elementoGeneral.name}</h6>
+                            </div>
 
-                   <div className="productGramesContainer">
-                        <h6>Gramos disponibles:</h6>
-                        <ul>
-                            <li>250 g</li>
-                            <li>500 g</li>
-                            <li>1000 g</li>
-                        </ul>
-                   </div>
+                            <div className="productImageContainer">
+                                <img src={morenita} alt=""/>
+                            </div>
 
-                   <div className="productGrindingsContainer">
-                        <h6>Moliendas Disponibles:</h6>
-                        <ul>
-                            <li>Grano</li>
-                            <li>Molido Grueso</li>
-                            <li>Molido Medio</li>
-                            <li>Molido Fino</li>
-                            <li>Molido Super Fino</li>
-                            <li>Molido Extra Fino</li>
-                        </ul>
-                   </div>
+                            <div className="productDescriptionContainer">
+                                    <h6>Descripcion del Producto</h6>
+                                    <p>{elementoGeneral.description} Mecafe es disfrutar del mejor cafe, una excelente calidad y el proceso mas natural para cuidar tu salud.</p>
+                            </div>
 
-                </div>
+                            <div className="productGramesContainer">
+                                    <h6>Gramos disponibles:</h6>
+                                    <ul>
+                                        {elementoGeneral.products_grames.map((element, index) => {
+                                            return(
+                                                <li key={index}>{element.grames}g</li>
+                                            )
+                                        })}
+                                    </ul>
+                            </div>
+
+                            <div className="productGrindingsContainer">
+                                    <h6>Moliendas Disponibles:</h6>
+                                    <ul>
+                                        {elementoGeneral.type_grindings.map((element, index) => {
+                                            return(
+                                                <li key={index}>{element.name}</li>
+                                            )
+                                        })}
+                                    </ul>
+                            </div>
+
+                        </div>
+
+                )})}
 
                 {/* Detalle Ultimo Usuario Creado */}
 
-                <div className="dashboard_UserDetail">
+                {lastUserCreated.map((elementoGeneral, index) => {
 
-                    <div className="userTitle">
-                        <h6>Ultimo usuario</h6>
-                    </div>
+                    return(
+                        
+                        <div key={index} className="dashboard_UserDetail">
 
-                    <div className="userImageContainer">
-                        <img src={nico} alt=""/>
-                    </div>
+                            <div className="userTitle">
+                                <h6>Ultimo usuario</h6>
+                            </div>
 
-                    <div className="userDataContainer">
+                            <div className="userImageContainer">
+                                <img src={nico} alt=""/>
+                            </div>
 
-                        <h6>Datos personales:</h6>
+                            <div className="userDataContainer">
 
-                        <div className="userName">
-                            <span>Nombre:</span>
-                            <p>Nicolas</p>
+                                <h6>Datos personales:</h6>
+
+                                <div className="userName">
+                                    <span>Nombre:</span>
+                                    <p>{elementoGeneral.firstName}</p>
+                                </div>
+
+                                <div className="userLastName">
+                                    <span>Apellido:</span>
+                                    <p>{elementoGeneral.lastName}</p>
+                                </div>
+
+                                <div className="userEmail">
+                                    <span>Email:</span>
+                                    <p>{elementoGeneral.email}</p>
+                                </div>
+
+                                <div className="userRol">
+                                    <span>Rol:</span>
+                                    <p>{elementoGeneral.roles.name}</p>
+                                </div>
+
+                                <div className="userCountry">
+                                    <span>Pais:</span>
+                                    <p>Chile</p>
+                                </div>
+
+                                <div className="userCity">
+                                    <span>Ciudad:</span>
+                                    <p>Mirasol</p>
+                                </div>
+
+                                <div className="userStreet">
+                                    <span>Calle:</span>
+                                    <p>Guillermo Lora 325</p>
+                                </div>
+
+                            </div>
+
                         </div>
 
-                        <div className="userLastName">
-                            <span>Apellido:</span>
-                            <p>Pirello</p>
-                        </div>
+                    )
 
-                        <div className="userEmail">
-                            <span>Email:</span>
-                            <p>nicoalepirello@gmail.com</p>
-                        </div>
 
-                        <div className="userRol">
-                            <span>Rol:</span>
-                            <p>Admin</p>
-                        </div>
+                })}
 
-                        <div className="userCountry">
-                            <span>Pais:</span>
-                            <p>Chile</p>
-                        </div>
-
-                        <div className="userCity">
-                            <span>Ciudad:</span>
-                            <p>Mirasol</p>
-                        </div>
-
-                        <div className="userStreet">
-                            <span>Calle:</span>
-                            <p>Guillermo Lora 325</p>
-                        </div>
-
-                    </div>
-
-                </div>
+                {/* Tarjetas de Cantidad de Productos por su tipo de molienda - API CONSUMIDA */}
 
                 <div className="dashboard_productsGrinding">
 
@@ -182,35 +264,22 @@ function Dashboard() {
 
                     <div className="productsGrinding__grid">
 
-                        <div className="grindingCard">
-                            <h6>En grano:</h6>
-                            <p>12 Productos Disponibles</p>
-                        </div>
+                        {totalProductsTypeGrinding.map((elemento, index) => {
 
-                        <div className="grindingCard">
-                            <h6>Molido Grueso:</h6>
-                            <p>23 Productos Disponibles</p>
-                        </div>
+                            let quantity = ""
 
-                        <div className="grindingCard">
-                            <h6>Molido Medio:</h6>
-                            <p>37 Productos Disponibles</p>
-                        </div>
+                            elemento.products.map(element => {
+                                return quantity = element.totalProducts
+                            })
 
-                        <div className="grindingCard">
-                            <h6>Molido fino:</h6>
-                            <p>42 Productos Disponibles</p>
-                        </div>
-
-                        <div className="grindingCard">
-                            <h6>Molido super fino:</h6>
-                            <p>50 Productos Disponibles</p>
-                        </div>
-
-                        <div className="grindingCard">
-                            <h6>Molido extra fino:</h6>
-                            <p>61 Productos Disponibles</p>
-                        </div>
+                            return(
+                                <CardGrinding
+                                    namegrinding= {elemento.name}
+                                    quantityProduct= {quantity}
+                                    key={index}
+                                />
+                            )
+                        })}
 
                     </div>
 
@@ -221,6 +290,7 @@ function Dashboard() {
         </div>
 
     );
+
 }
 
 export default Dashboard;
