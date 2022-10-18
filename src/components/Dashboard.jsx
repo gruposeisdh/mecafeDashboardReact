@@ -147,6 +147,8 @@ function Dashboard() {
 
                 {lastProductCreated.map((elementoGeneral, index) => {
 
+                    let rutaImagenProucto = `http://localhost:3030/img/productos/${elementoGeneral.images_products[0].path}`
+
                     return(
 
                         <div key={index} className="dashboard_ProductDetail">
@@ -156,7 +158,7 @@ function Dashboard() {
                             </div>
 
                             <div className="productImageContainer">
-                                <img src={morenita} alt=""/>
+                                <img src={rutaImagenProucto} alt=""/>
                             </div>
 
                             <div className="productDescriptionContainer">
@@ -194,6 +196,16 @@ function Dashboard() {
 
                 {lastUserCreated.map((elementoGeneral, index) => {
 
+                    let rutaImagen = `http://localhost:3030/img/profiles/${elementoGeneral.image}`
+
+                    let directionDefault = {}
+
+                    {elementoGeneral.directions.map(elemento => {
+                        if (elemento.default){
+                            return directionDefault = elemento
+                        }
+                    })}
+
                     return(
                         
                         <div key={index} className="dashboard_UserDetail">
@@ -203,7 +215,7 @@ function Dashboard() {
                             </div>
 
                             <div className="userImageContainer">
-                                <img src={nico} alt=""/>
+                                <img src={rutaImagen} alt=""/>
                             </div>
 
                             <div className="userDataContainer">
@@ -232,17 +244,17 @@ function Dashboard() {
 
                                 <div className="userCountry">
                                     <span>Pais:</span>
-                                    <p>Chile</p>
+                                    <p>{directionDefault.country ? directionDefault.country : "Sin asignar"}</p>
                                 </div>
 
                                 <div className="userCity">
                                     <span>Ciudad:</span>
-                                    <p>Mirasol</p>
+                                    <p>{directionDefault.city ? directionDefault.city : "Sin asignar"}</p>
                                 </div>
 
                                 <div className="userStreet">
                                     <span>Calle:</span>
-                                    <p>Guillermo Lora 325</p>
+                                    <p>{directionDefault.street ? directionDefault.street : "Sin asignar"}</p>
                                 </div>
 
                             </div>
@@ -250,7 +262,6 @@ function Dashboard() {
                         </div>
 
                     )
-
 
                 })}
 

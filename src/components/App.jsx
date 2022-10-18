@@ -28,8 +28,7 @@ function App() {
 
         <div className="contenedorPrincipal">
           <Routes>
-            <Route path="/" element={ <Home/> } />
-            <Route path="/dashboard" element={ <Dashboard/> } />
+            <Route path="/" element={ <Dashboard/> } />
             <Route path="/products" element={ <ProductsList/> } />
             <Route path="*" element={ <NotFound/> } />
           </Routes>
