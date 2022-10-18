@@ -571,6 +571,104 @@ header nav{
     text-align: center;
 }
 
+/**  -------------------- COMPONENTE PRODUCTS LIST -------------------- */
+
+.productListGeneral table {
+    border-collapse: collapse;
+    width: 100%;
+    border: solid 1px var(--gray-pastel);
+    border-radius: 10px;
+    table-layout: fixed;
+}
+
+.productListGeneral table thead tr{
+    text-transform: uppercase;
+    border-bottom: solid 2px var(--lox);
+}
+
+.productListGeneral table thead tr{
+    border-bottom: solid 2px var(--lox);
+}
+
+.productListGeneral table thead tr th{
+    padding: 15px 10px ;
+    text-align: center;
+}
+
+.productListGeneral table tbody tr td{
+    font-size: 14px;
+    padding: 15px 10px;
+    text-align: center;
+    border-bottom: solid 1px var(--gray-pastel);
+}
+
+.productListGeneral table tbody tr td div{
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.productListGeneral table tbody tr td div p{
+    /* padding: 5px; */
+    /* border: solid 1px var(--lox); */
+    border-radius: 3px;
+}
+
+/* AJUSTAR ANCHO DE CADA COLUMNA */
+
+thead th:nth-child(1) {
+    width: 2%;
+}
+
+thead th:nth-child(2) {
+width: 5%;
+}
+
+thead th:nth-child(3) {
+    width: 3%;
+}
+
+thead th:nth-child(4) {
+    width: 10%;
+}
+
+thead th:nth-child(5) {
+    width: 5%;
+}
+
+thead th:nth-child(6) {
+    width: 15%;
+}
+
+/* OCULTANDO EN 361PX */
+
+.thOcultoCuatro {
+    display: none;
+}
+
+.thOcultoCinco {
+    display: none;
+}
+
+.thOcultoSeis {
+    display: none;
+}
+
+.productListGeneral{
+    border-radius: 5px;
+    margin: 2%;
+    background-color: white;
+}
+
+.titleProductListContainer{
+    margin-top: 15px;
+    text-align: center;
+
+}
+
+
 /* TODO ---------------------------------------- SEPARADOR DE QUERYS ---------------------------------------- */
 
 /* ! -------------------- QUERYY SELECTOR 480PX --------------------  */
@@ -671,6 +769,14 @@ header nav{
         grid-template-columns: 1fr 1fr;
     }
 
+    /**  -------------------- COMPONENTE PRODUCTS LIST -------------------- */
+
+    /* OCULTANDO EN 361PX */
+
+    .thOcultoCinco {
+        display: revert;
+    }
+
 }
 
 /* ! -------------------- QUERYY SELECTOR 768PX --------------------  */
@@ -751,6 +857,14 @@ header nav{
 
     .userDataContainer div{
         padding: 8px 0;
+    }
+
+    /**  -------------------- COMPONENTE PRODUCTS LIST -------------------- */
+
+    /* OCULTANDO EN 361PX */
+
+    .thOcultoCuatro {
+        display: revert;
     }
 
 }
@@ -907,6 +1021,13 @@ header nav{
         margin-top: 0;
     }
 
+    /**  -------------------- COMPONENTE PRODUCTS LIST -------------------- */
+
+    /* OCULTANDO EN 361PX */
+
+    .thOcultoSeis {
+        display: revert;
+    }
 
 
 }
