@@ -1,8 +1,6 @@
 import { useState ,useEffect } from "react"
 import CardGrinding from "./CardGrinding"
 import CardTotals from "./CardTotals"
-import morenita from "../images/cafe-molido-morenita.jpg"
-import nico from "../images/perfil.png"
 import { MdOutlineProductionQuantityLimits } from "react-icons/md";
 import { AiOutlineUser, AiOutlineUserAdd } from "react-icons/ai";
 
@@ -86,6 +84,18 @@ function Dashboard() {
             })
     }, [])
 
+    /* Total de Roles */
+
+    let [ totalRolesUser, setTotalRolesUser ] = useState([])
+
+    useEffect ( () => {
+        fetch("http://localhost:3030/api/totalRolesUser")
+            .then(response => response.json())
+            .then(result => {
+                setTotalRolesUser(result)
+            })
+    }, [])
+
     /* Ultimo Producto Creado */
 
     let [ lastProductCreated, setLastProductCreated ] = useState([])
@@ -137,7 +147,7 @@ function Dashboard() {
 
                     <CardTotals 
                         title="Total Roles de Usuario"
-                        quantity={10}
+                        quantity={totalRolesUser.totalRoles}
                         icon= <AiOutlineUserAdd className="cardIcon"/>
                     />
 
@@ -200,11 +210,14 @@ function Dashboard() {
 
                     let directionDefault = {}
 
-                    {elementoGeneral.directions.map(elemento => {
+                    elementoGeneral.directions.map(elemento => {
+                        
                         if (elemento.default){
-                            return directionDefault = elemento
+                            directionDefault = elemento
                         }
-                    })}
+
+                        return directionDefault
+                    })
 
                     return(
                         
