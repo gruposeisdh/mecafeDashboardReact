@@ -210,12 +210,13 @@ function Dashboard() {
 
                     let directionDefault = {}
 
+                    
                     elementoGeneral.directions.map(elemento => {
                         
                         if (elemento.default){
                             directionDefault = elemento
                         }
-
+                        
                         return directionDefault
                     })
 
