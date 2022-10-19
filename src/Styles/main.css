@@ -161,7 +161,7 @@ header nav{
 
 .newFooter {
 
-    position: absolute;
+    /* position: absolute; /* BORRAR QUIZAS */ 
     left: 0;
     width: 100%;
     height: var(--tamanoFooter); /* Es el calculo del Footer, deberia ser una variable. */
@@ -610,12 +610,6 @@ header nav{
     gap: 5px;
 }
 
-.productListGeneral table tbody tr td div p{
-    /* padding: 5px; */
-    /* border: solid 1px var(--lox); */
-    border-radius: 3px;
-}
-
 /* AJUSTAR ANCHO DE CADA COLUMNA */
 
 thead th:nth-child(1) {
@@ -623,7 +617,7 @@ thead th:nth-child(1) {
 }
 
 thead th:nth-child(2) {
-width: 5%;
+    width: 5%;
 }
 
 thead th:nth-child(3) {
